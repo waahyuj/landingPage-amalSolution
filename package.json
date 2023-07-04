@@ -1,0 +1,26 @@
+{
+  "name": "landingpage",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css && nodemon",
+    "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css",
+    "dev": "npm run tailwind:css && nodemon ./bin/www -e js,css"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "postcss-cli": "^10.1.0",
+    "pug": "2.0.0-beta11",
+    "tw-elements": "^1.0.0-beta2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2"
+  }
+}
