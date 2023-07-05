@@ -5,8 +5,11 @@ module.exports = {
     "./node_modules/tw-elements/dist/js/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ['"Poppins"', "sans-serif"],
+      },
+    },
   },
   plugins: [require("tw-elements/dist/plugin.cjs")],
 }
-
