@@ -699,6 +699,9 @@ video {
 .mb-0{
   margin-bottom: 0px;
 }
+.mb-10{
+  margin-bottom: 2.5rem;
+}
 .mb-12{
   margin-bottom: 3rem;
 }
@@ -1246,8 +1249,14 @@ video {
      -moz-appearance: none;
           appearance: none;
 }
+.grid-cols-1{
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
 .grid-cols-2{
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .grid-cols-5{
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1266,6 +1275,9 @@ video {
 }
 .items-center{
   align-items: center;
+}
+.items-stretch{
+  align-items: stretch;
 }
 .justify-end{
   justify-content: flex-end;
@@ -1288,10 +1300,11 @@ video {
 .gap-2{
   gap: 0.5rem;
 }
-.-space-x-14 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(-3.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(-3.5rem * calc(1 - var(--tw-space-x-reverse)));
+.gap-4{
+  gap: 1rem;
+}
+.self-start{
+  align-self: flex-start;
 }
 .overflow-hidden{
   overflow: hidden;
@@ -1391,6 +1404,9 @@ video {
 .border-0{
   border-width: 0px;
 }
+.border-2{
+  border-width: 2px;
+}
 .border-\[\.125rem\]{
   border-width: .125rem;
 }
@@ -1459,6 +1475,10 @@ video {
 .border-transparent{
   border-color: transparent;
 }
+.border-violet-300{
+  --tw-border-opacity: 1;
+  border-color: rgb(196 181 253 / var(--tw-border-opacity));
+}
 .border-white{
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
@@ -1514,6 +1534,10 @@ video {
 .bg-black\/40{
   background-color: rgb(0 0 0 / 0.4);
 }
+.bg-gray-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
 .bg-green-600{
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
@@ -1532,6 +1556,10 @@ video {
 .bg-violet-100{
   --tw-bg-opacity: 1;
   background-color: rgb(237 233 254 / var(--tw-bg-opacity));
+}
+.bg-violet-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(221 214 254 / var(--tw-bg-opacity));
 }
 .bg-violet-600{
   --tw-bg-opacity: 1;
@@ -1964,6 +1992,10 @@ video {
 .text-purple-500{
   --tw-text-opacity: 1;
   color: rgb(168 85 247 / var(--tw-text-opacity));
+}
+.text-violet-500{
+  --tw-text-opacity: 1;
+  color: rgb(139 92 246 / var(--tw-text-opacity));
 }
 .text-violet-600{
   --tw-text-opacity: 1;
