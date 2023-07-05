@@ -1216,6 +1216,9 @@ video {
      -moz-appearance: none;
           appearance: none;
 }
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
 .\!flex-row {
   flex-direction: row !important;
 }
@@ -1245,6 +1248,9 @@ video {
 }
 .justify-evenly {
   justify-content: space-evenly;
+}
+.gap-10 {
+  gap: 2.5rem;
 }
 .overflow-hidden {
   overflow: hidden;
@@ -1464,10 +1470,6 @@ video {
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: rgb(59 113 202 / var(--tw-bg-opacity));
-}
-.bg-secondary {
-  --tw-bg-opacity: 1;
-  background-color: rgb(159 166 178 / var(--tw-bg-opacity));
 }
 .bg-transparent {
   background-color: transparent;
