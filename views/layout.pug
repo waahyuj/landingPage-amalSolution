@@ -3,15 +3,17 @@ html
   head
     meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    block style
+      include style
+    block script
+      include script
     
   body
     block navbar
       include navbar
-    //- block navbar
 
     block content
     
+    block footer
+      include footer
     script(src='/tw-elements/dist/js/tw-elements.umd.min.js', type='text/javascript')
-    //- block footer
-    //-   include footer
