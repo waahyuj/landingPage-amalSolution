@@ -1,15 +1,29 @@
-div.container.mx-auto.mt-8
-  .flex.items-left.flex-col.text-left
-    p.text-xs.font-bold.mt-10.text-green-500 LEARN FROM EXPERT
-    br
-    p
-      span.text-black-500.text-4xl Start your 
-      span.text-purple-500.text-4xl Developer
-    p
-      span.text-purple-500.text-4xl Journey 
-      span.text-black-500.text-4xl Today
-    br
-    p
-      span.text-black-500.font-thin.text-xs Our bootcamp is helping junior developers who 
-    p
-      span.text-black-500.font-thin.text-xs
+
+div.container.mx-auto(style="position: relative; margin-top: 180px;")
+  .grid.grid-cols-2
+    .col-span-1
+      .container.mx-auto.mt-8
+        .flex.items-left.flex-col.text-left(style="margin-left: 162px;")
+          p.text-xs.font-bold.mt-10.text-green-500 LEARN FROM EXPERT
+          br
+          p
+            span.text-black-500.text-4xl Start your 
+            span.text-purple-500.text-4xl Developer
+          p
+            span.text-purple-500.text-4xl Journey 
+            span.text-black-500.text-4xl Today
+          br
+          p
+            span.text-black-500.font-thin.text-xs Our bootcamp is helping junior developers who 
+          p
+            span.text-black-500.font-thin.text-xs are really passionate in programming
+          br
+          button.bg-purple-500.text-white.font-bold.w-40.h-10.py-2.px-4.rounded-full Get Started
+
+    .col-span-1
+      .container.mx-auto.mt-8
+        div.flex.justify-center.-space-x-14
+          div.relative
+            img(src="images/banner.avif", alt="Banner", style="width: 490px; height: 340px;")
+            img(src="images/overlay.avif", alt="Overlay", class="absolute",  style="width: 213px; height: 112px; left: -100px;top:-50px; border-radius:10px;")
+            img(src="images/overlay.avif", alt="Overlay", class="absolute",  style="width: 213px; height: 112px; left: 400px;top:300px; border-radius:10px;")

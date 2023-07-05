@@ -644,6 +644,9 @@ video {
 .z-\[999\] {
   z-index: 999;
 }
+.col-span-1 {
+  grid-column: span 1 / span 1;
+}
 .float-right {
   float: right;
 }
@@ -917,6 +920,9 @@ video {
 }
 .w-4 {
   width: 1rem;
+}
+.w-40 {
+  width: 10rem;
 }
 .w-5 {
   width: 1.25rem;
@@ -1216,6 +1222,9 @@ video {
      -moz-appearance: none;
           appearance: none;
 }
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .grid-cols-5 {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
@@ -1251,6 +1260,11 @@ video {
 }
 .gap-10 {
   gap: 2.5rem;
+}
+.-space-x-14 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(-3.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(-3.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .overflow-hidden {
   overflow: hidden;
@@ -1470,6 +1484,10 @@ video {
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: rgb(59 113 202 / var(--tw-bg-opacity));
+}
+.bg-purple-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 85 247 / var(--tw-bg-opacity));
 }
 .bg-transparent {
   background-color: transparent;
