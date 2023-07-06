@@ -723,6 +723,9 @@ video {
 .ml-10{
   margin-left: 2.5rem;
 }
+.ml-20{
+  margin-left: 5rem;
+}
 .ml-6{
   margin-left: 1.5rem;
 }
@@ -764,6 +767,9 @@ video {
 }
 .mt-2\.5{
   margin-top: 0.625rem;
+}
+.mt-24{
+  margin-top: 6rem;
 }
 .mt-3{
   margin-top: 0.75rem;
@@ -938,6 +944,9 @@ video {
 }
 .w-2{
   width: 0.5rem;
+}
+.w-28{
+  width: 7rem;
 }
 .w-3{
   width: 0.75rem;
