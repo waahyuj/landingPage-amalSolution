@@ -1799,6 +1799,9 @@ video {
 .pb-0{
   padding-bottom: 0px;
 }
+.pl-4{
+  padding-left: 1rem;
+}
 .pl-\[50px\]{
   padding-left: 50px;
 }
