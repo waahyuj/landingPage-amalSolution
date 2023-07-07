@@ -13,4 +13,63 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
         div.text-black.text-right.space-x-5
             button.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full Sign in
             button.bg-firstPurple.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full Sign up
+    #signInModal.fixed.inset-0.bg-black.bg-opacity-50.flex.items-center.justify-center.hidden
+      div.bg-white.p-4.item-center
+        div(class="flex justify-left px-8 items-center bg-white")
+        form(class="bg-white")
+            img(src="images/laracamplogo.svg" alt="logo")
+            div(class="flex items-center border-2 py-2 px-3 mt-4 rounded-xl mb-4")
+                input(class="outline-none border-none" type="text" name="" id="" placeholder="Username")
+            div(class="flex items-center border-2 py-2 px-3 rounded-xl")
+                input(class="outline-none border-none" type="password" name="" id="" placeholder="Password")
+            button#movetoin(type="submit" class="block w-full bg-violet-900 mt-4 py-2 rounded-xl text-white font-semibold mb-2") Sign In
+            span(class="text-sm ml-2 hover:text-violet-600 cursor-pointer") Don’t have an account? Sign Up.
+        button#closeSignInBtn.bg-violet-600.text-xs.text-white.w-28.h-6.ml-6.py-2.px-4.rounded-full(type='button') Close
+    #signUpModal.fixed.inset-0.bg-black.bg-opacity-50.flex.items-center.justify-center.hidden
+      div.bg-white.p-4
+        div(class="flex justify-left px-8 items-center bg-white")
+        form(class="bg-white")
+            img(src="images/laracamplogo.svg" alt="logo")
+            h1(class="font-semibold text-xl mt-8") Start Today
+            p(class="text-sm font-normal text-gray-600 mb-6") Because tomorrow become never
+            div(class="flex items-center border-2 py-2 px-3 rounded-xl mb-4")
+                input(class="outline-none border-none" type="text" name="" id="" placeholder="Username")
+            div(class="flex items-center border-2 py-2 px-3 rounded-xl mb-4")
+                input(class="outline-none border-none" type="email" name="" id="" placeholder="Email Address")
+            div(class="flex items-center border-2 py-2 px-3 rounded-xl")
+                input(class="outline-none border-none" type="password" name="" id="" placeholder="Password")
+            button#movetoup(type="submit" class="block w-full bg-violet-900 mt-4 py-2 rounded-xl text-white font-semibold mb-2") Sign Up
+            span(class="text-sm ml-2 hover:text-violet-600 cursor-pointer") Already have an account? Sign In
+        button#closeSignUpBtn.bg-violet-600.text-xs.text-white.w-28.h-6.ml-6.py-2.px-4.rounded-full(type='button') Close
 
+script.
+  const signInModalBtn = document.querySelector('[data-modal-toggle="signInModal"]');
+  const signUpModalBtn = document.querySelector('[data-modal-toggle="signUpModal"]');
+  const signInModal = document.getElementById('signInModal');
+  const signUpModal = document.getElementById('signUpModal');
+  const closeSignInBtn = document.getElementById('closeSignInBtn');
+  const closeSignUpBtn = document.getElementById('closeSignUpBtn');
+  const movetoin = document.getElementById('movetoin');
+  const movetoup = document.getElementById('movetoup');
+
+  signInModalBtn.addEventListener('click', () => {
+    signInModal.classList.remove('hidden');
+  });
+
+  signUpModalBtn.addEventListener('click', () => {
+    signUpModal.classList.remove('hidden');
+  });
+
+  closeSignInBtn.addEventListener('click', () => {
+    signInModal.classList.add('hidden');
+  });
+
+  closeSignUpBtn.addEventListener('click', () => {
+    signUpModal.classList.add('hidden');
+  });
+
+  movetoup.addEventListener('click', () => {
+    signInModalBtn.click();
+  })
+
+  
