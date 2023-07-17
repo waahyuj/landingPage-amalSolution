@@ -8,7 +8,11 @@ const neo4j = require('neo4j-driver');
 const app = express();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const mainRouter = require('./routes/main');
+const driver = neo4j.driver(
+  'neo4j://localhost:7687',
+  neo4j.auth.basic('neo4j', '12345678'),
+  { disableLosslessIntegers: true }
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,13 +23,34 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static("node_modules"));
-
-const db = neo4j.driver("bolt://localhost:7474", neo4j.auth.basic("neo4j", "12345678"));
+app.use(express.static('node_modules'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/', mainRouter);
+
+
+app.get('/getall', function(req, res, next) {
+  var session = driver.session();
+  session
+    .run('MATCH (n) RETURN n', {})
+    .then(result => {
+      var dataArray = [];
+      result.records.forEach(function(rec) {
+        dataArray.push(rec.get(0).properties);
+      });
+      console.log(dataArray);
+      res.json(dataArray);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    })
+    .finally(() => {
+      session.close();
+    });
+});
+
+// ...
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
