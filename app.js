@@ -30,11 +30,12 @@ app.use('/users', usersRouter);
 
 app.post('/signup', function(req, res) {
   const { username, email, password } = req.body;
+  const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
 
   const session = driver.session();
 
   // Hash the password
-  bcrypt.hash(password, 10, function(err, hashedPassword) {
+  bcrypt.hash(decodedPassword, 10, function(err, hashedPassword) {
     if (err) {
       console.error('Error hashing password:', err);
       res.redirect('/signup/error');

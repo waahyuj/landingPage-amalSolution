@@ -100,10 +100,13 @@ script.
   const emailInput = document.querySelector('#signUpModal input[name="email"]');
   const passwordInput = document.querySelector('#signUpModal input[name="password"]');
 
+
   const username = usernameInput.value;
   const email = emailInput.value;
   const password = passwordInput.value;
 
+  const encodedPassword = btoa(password);
+  
   const signUpData = {
     username: username,
     email: email,
