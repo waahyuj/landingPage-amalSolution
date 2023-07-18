@@ -18,9 +18,9 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
       form(class="bg-white")
           img(src="images/laracamplogo.svg" alt="logo")
           div(class="flex items-center border-2 py-2 px-3 mt-4 rounded-xl mb-4")
-              input(class="outline-none border-none" type="text" name="username" id="username" placeholder="Username")
+              input(class="outline-none border-none" type="text" name="" id="" placeholder="Username")
           div(class="flex items-center border-2 py-2 px-3 rounded-xl")
-              input(class="outline-none border-none" type="password" name="password" id="password" placeholder="Password")
+              input(class="outline-none border-none" type="password" name="" id="" placeholder="Password")
           button#signed(type="submit" class="block w-full bg-violet-900 mt-4 py-2 rounded-xl text-white font-semibold mb-2") Sign In
           span#jumptoup(class="text-sm ml-2 hover:text-violet-600 cursor-pointer") Don’t have an account? Sign Up.
       button#closeSignInBtn.bg-violet-600.text-xs.text-white.w-28.h-6.ml-6.py-2.px-4.rounded-full(type='button') Close
@@ -32,11 +32,11 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
           h1(class="font-semibold text-xl mt-8") Start Today
           p(class="text-sm font-normal text-gray-600 mb-6") Because tomorrow becomes never
           div(class="flex items-center border-2 py-2 px-3 rounded-xl mb-4")
-              input(class="outline-none border-none" type="text" name="username" id="username" placeholder="Username")
+              input(class="outline-none border-none" type="text" name="" id="" placeholder="Username")
           div(class="flex items-center border-2 py-2 px-3 rounded-xl mb-4")
-              input(class="outline-none border-none" type="email" name="email" id="email" placeholder="Email Address")
+              input(class="outline-none border-none" type="email" name="" id="" placeholder="Email Address")
           div(class="flex items-center border-2 py-2 px-3 rounded-xl")
-              input(class="outline-none border-none" type="password" name="password" id="password" placeholder="Password")
+              input(class="outline-none border-none" type="password" name="" id="" placeholder="Password")
           button#upped(type="submit" class="block w-full bg-violet-900 mt-4 py-2 rounded-xl text-white font-semibold mb-2") Sign Up
           span#jumptoin(class="text-sm ml-2 hover:text-violet-600 cursor-pointer") Already have an account? Sign In
       button#closeSignUpBtn.bg-violet-600.text-xs.text-white.w-28.h-6.ml-6.py-2.px-4.rounded-full(type='button') Close
@@ -70,6 +70,10 @@ script.
     signUpModal.classList.add('hidden');
   });
 
+  upped.addEventListener('click', () => {
+    signInModalBtn.click();
+  });
+
   signed.addEventListener('click', () => {
     fetch('/getall')
       .then(response => response.json())
@@ -89,40 +93,4 @@ script.
   jumptoin.addEventListener('click', () => {
     signUpModal.classList.add('hidden');
     signInModal.classList.remove('hidden');
-  });
-
-  upped.addEventListener('click', () => {
-  const usernameInput = document.querySelector('#signUpModal input[name="username"]');
-  const emailInput = document.querySelector('#signUpModal input[name="email"]');
-  const passwordInput = document.querySelector('#signUpModal input[name="password"]');
-
-  const username = usernameInput.value;
-  const email = emailInput.value;
-  const password = passwordInput.value;
-
-  const signUpData = {
-    username: username,
-    email: email,
-    password: password
-  };
-
-  fetch('/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(signUpData)
-  })
-    .then(response => {
-      if (response.ok) {
-        // Sign-up successful, redirect to success page or any other desired route
-        window.location.href = '/signup/success';
-      } else {
-        // Handle sign-up failure
-        console.error('Sign-up failed:', response.statusText);
-      }
-    })
-    .catch(error => {
-      console.error('Sign-up failed:', error);
-    });
   });
