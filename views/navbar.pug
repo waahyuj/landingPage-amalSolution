@@ -106,11 +106,11 @@ script.
   const password = passwordInput.value;
 
   const encodedPassword = btoa(password);
-  
+
   const signUpData = {
     username: username,
     email: email,
-    password: password
+    password: encodedPassword
   };
 
   fetch('/signup', {
