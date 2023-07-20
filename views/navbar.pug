@@ -136,13 +136,37 @@ script.
 
   signed.addEventListener('click', async () => {
     try {
-      const response = await fetch('/getall');
+      const usernameInput = document.querySelector('#signInModal input[name="username"]');
+      const passwordInput = document.querySelector('#signInModal input[name="password"]');
+
+      const username = usernameInput.value;
+      const password = passwordInput.value;
+
+      const encodedPassword = btoa(password);
+
+      const loginData = {
+        username: username,
+        password: encodedPassword
+      };
+
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+      });
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+
+      // Assuming your server sends a response indicating successful login
       const data = await response.json();
-      console.log(data); // Do something with the data received from the server
+      console.log('Login successful:', data);
+      // Do something after successful login, like redirecting to a dashboard page
     } catch (error) {
       console.error('Error:', error);
+      // Handle login failure, show an error message, etc.
     }
   });
