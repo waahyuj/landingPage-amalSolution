@@ -88,7 +88,47 @@ app.get('/getall', function(req, res, next) {
     });
 });
 
-// ...
+app.post('/login', function(req, res) {
+  const { username, password } = req.body;
+  const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
+
+  const session = driver.session();
+
+  // Retrieve the user from the database
+  session
+    .run(
+      'MATCH (u:User {username: $username}) RETURN u',
+      { username }
+    )
+    .then(result => {
+      session.close();
+
+      const userRecord = result.records[0];
+      if (!userRecord) {
+        // User not found
+        res.redirect('/login/error'); // Redirect to error page or show an error message
+        return;
+      }
+
+      const user = userRecord.get('u');
+      const hashedPassword = user.properties.password;
+
+      bcrypt.compare(decodedPassword, hashedPassword, function(err, isMatch) {
+        if (err || !isMatch) {
+          console.error('Incorrect password');
+          res.redirect('/login/error'); // Redirect to error page or show an error message
+        } else {
+          // Passwords match, log the user in
+          res.redirect('/login/success'); 
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error during login:', error);
+      session.close();
+      res.redirect('/login/error'); // Redirect to error page or show an error message
+    });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
