@@ -74,16 +74,16 @@ script.
     signInModalBtn.click();
   });
 
-  signed.addEventListener('click', () => {
-    fetch('/getall')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data); // Do something with the data received from the server
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  });
+  //- signed.addEventListener('click', () => {
+  //-   fetch('/getall')
+  //-     .then(response => response.json())
+  //-     .then(data => {
+  //-       console.log(data); // Do something with the data received from the server
+  //-     })
+  //-     .catch(error => {
+  //-       console.error(error);
+  //-     });
+  //- });
 
   jumptoup.addEventListener('click', () => {
     signInModal.classList.add('hidden');

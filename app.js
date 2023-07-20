@@ -106,7 +106,7 @@ app.post('/login', function(req, res) {
       const userRecord = result.records[0];
       if (!userRecord) {
         // User not found
-        res.redirect('/login/error'); // Redirect to error page or show an error message
+        res.redirect('/loginPages/sign'); // Redirect to error page or show an error message
         return;
       }
 
@@ -116,10 +116,12 @@ app.post('/login', function(req, res) {
       bcrypt.compare(decodedPassword, hashedPassword, function(err, isMatch) {
         if (err || !isMatch) {
           console.error('Incorrect password');
-          res.redirect('/login/error'); // Redirect to error page or show an error message
+          res.redirect('/loginPages/sign'); // Redirect to error page or show an error message
+          console.log('hi');
         } else {
           // Passwords match, log the user in
-          res.redirect('/login/success'); 
+          res.redirect('/loginPages/sign'); 
+          console.log('he');
         }
       });
     })
@@ -127,6 +129,7 @@ app.post('/login', function(req, res) {
       console.error('Error during login:', error);
       session.close();
       res.redirect('/login/error'); // Redirect to error page or show an error message
+      console.log('ha');
     });
 });
 
