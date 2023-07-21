@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const neo4j = require('neo4j-driver');
 const bcrypt = require('bcrypt');
+const session = require('express-session')
 const app = express();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -24,6 +25,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('node_modules'));
+app.use (session({
+  secret: 'some secret',
+  cookie: {maxAge: 30000},
+  saveUninitialized: false
+}))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -117,11 +123,10 @@ app.post('/login', function(req, res) {
         if (err || !isMatch) {
           console.error('Incorrect password');
           res.redirect('/loginPages/sign'); // Redirect to error page or show an error message
-          console.log('hi');
         } else {
           // Passwords match, log the user in
           res.redirect('/loginPages/sign'); 
-          console.log('he');
+          console.log('Berhasil Login');
         }
       });
     })
@@ -146,4 +151,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.post('logon',(req, res)=>{
+  console.log('hello');
+  res.send(200);
+})
 module.exports = app;
