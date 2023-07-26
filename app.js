@@ -34,6 +34,57 @@ app.use (session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+//SIGNIN FUNCTION
+app.post('/signin', function(req, res) {
+  const { username, password } = req.body;
+  const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
+
+  const session = driver.session();
+
+  // Retrieve the user from the Neo4j database based on the provided username
+  session
+    .run('MATCH (u:User {username: $username}) RETURN u', { username })
+    .then(result => {
+      console.log(result)
+      // Check if the user exists
+      if (result.records.length === 0) {
+        // User not found, redirect to an error page or show an error message
+        res.redirect('/signin/error');
+        return;
+      }
+
+      const user = result.records[0].get('u');
+
+      // Compare the hashed password stored in the database with the provided password
+      bcrypt.compare(decodedPassword, user.properties.password, function(err, isMatch) {
+        if (err) {
+          console.error('Error comparing passwords:', err);
+          res.redirect('/signin/error');
+          return;
+        }
+
+        if (isMatch) {
+          console.log(user)
+          res.redirect('/signin/success');
+        } else {
+          // Passwords do not match, user authentication failed
+          res.redirect('/signin/error');
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error finding user:', error);
+
+      // Close the session
+      session.close();
+
+      // Handle the error and redirect to an error page or show an error message
+      res.redirect('/signin/error');
+    });
+});
+
+
+//SIGNUP FUNCTION
 app.post('/signup', function(req, res) {
   const { username, email, password } = req.body;
   const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
