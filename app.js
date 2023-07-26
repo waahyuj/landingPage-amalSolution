@@ -14,6 +14,7 @@ const driver = neo4j.driver(
   neo4j.auth.basic('neo4j', '12345678'),
   { disableLosslessIntegers: true }
 );
+const cookieSer = require('./lib/cookie');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,43 +35,46 @@ app.use (session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-//SIGNIN FUNCTION
-app.post('/signin', function(req, res) {
-  const { username, password } = req.body;
-  const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
+app.post('/login', function(req, res) {
 
   const session = driver.session();
 
-  // Retrieve the user from the Neo4j database based on the provided username
   session
-    .run('MATCH (u:User {username: $username}) RETURN u', { username })
+    .run('MATCH (u:User {username: $username}) RETURN u', { username:req.body.username })
     .then(result => {
-      console.log(result)
       // Check if the user exists
-      if (result.records.length === 0) {
-        // User not found, redirect to an error page or show an error message
-        res.redirect('/signin/error');
-        return;
-      }
+      // if (result.records.length === 0) {
+      //   // User not found, redirect to an error page or show an error message
+      //   res.redirect('/signin/error');
+      //   return;
+      // }
 
       const user = result.records[0].get('u');
+      
+      res.cookie(
+        'landing_page_amal',
+        cookieSer.ser({
+          email: user.properties.email,
+          username: user.properties.username,
+        })
+      )
 
       // Compare the hashed password stored in the database with the provided password
-      bcrypt.compare(decodedPassword, user.properties.password, function(err, isMatch) {
-        if (err) {
-          console.error('Error comparing passwords:', err);
-          res.redirect('/signin/error');
-          return;
-        }
+      // bcrypt.compare(decodedPassword, user.properties.password, function(err, isMatch) {
+      //   if (err) {
+      //     console.error('Error comparing passwords:', err);
+      //     res.redirect('/signin/error');
+      //     return;
+      //   }
 
-        if (isMatch) {
-          console.log(user)
-          res.redirect('/signin/success');
-        } else {
-          // Passwords do not match, user authentication failed
-          res.redirect('/signin/error');
-        }
-      });
+      //   if (isMatch) {
+      //     console.log(user)
+      //     res.redirect('/signin/success');
+      //   } else {
+      //     // Passwords do not match, user authentication failed
+      //     res.redirect('/signin/error');
+      //   }
+      // });
     })
     .catch(error => {
       console.error('Error finding user:', error);
@@ -81,6 +85,34 @@ app.post('/signin', function(req, res) {
       // Handle the error and redirect to an error page or show an error message
       res.redirect('/signin/error');
     });
+});
+
+app.use(function (req, res, next) {
+  const ck = req.cookies['landing_page_amal']
+  console.log(ck)
+  console.log("ck")
+  if (ck) {
+    const cookie = cookieSer.dser(req.cookies['landing_page_amal'])
+
+    console.log(cookie)
+    console.log("1")
+    return next()
+  }else{
+    res.clearCookie('landing_page_amal')
+    console.log("2")
+    return next()
+  }
+})
+
+//SIGNIN FUNCTION
+app.post('/signin', function(req, res) {
+  const { username, password } = req.body;
+  const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
+
+  const session = driver.session();
+
+  // Retrieve the user from the Neo4j database based on the provided username
+
 });
 
 

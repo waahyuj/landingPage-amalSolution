@@ -25,14 +25,15 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
             path(stroke-linecap='round', stroke-linejoin='round', d='M6 18L18 6M6 6l12 12')
       // Modal body
       .relative.flex-auto.p-4(data-te-modal-body-ref='')
-        form
+        form(action="/login" method="post")
           div(class="flex items-center border py-2 px-3 mt-4 rounded-xl mb-4")
               input(class="text-white bg-transparent focus:outline-none border-none" type="text" name="username" id="username" placeholder="Username")
           div(class="flex items-center border py-2 px-3 mt-4 rounded-xl mb-4")
               input(class="text-white bg-transparent focus:outline-none border-none" type="password" name="password" id="password" placeholder="Password")
-      // Modal footer
-      .flex.flex-shrink-0.flex-wrap.items-center.justify-end.rounded-b-md.border-t-2.border-neutral-100.border-opacity-100.p-4(class='dark:border-opacity-50')
-        button#buttonsignIn(type="submit" data-te-modal-dismiss="" class="block w-full bg-secondPurple mt-4 py-2 rounded-xl text-firstPurple font-semibold mb-2") Sign In
+          button(type="submit" data-te-modal-dismiss="" class="block w-full bg-secondPurple mt-4 py-2 rounded-xl text-firstPurple font-semibold mb-2") Sign In
+      //- // Modal footer
+      //- .flex.flex-shrink-0.flex-wrap.items-center.justify-end.rounded-b-md.border-t-2.border-neutral-100.border-opacity-100.p-4(class='dark:border-opacity-50')
+      //-   button(type="submit" data-te-modal-dismiss="" class="block w-full bg-secondPurple mt-4 py-2 rounded-xl text-firstPurple font-semibold mb-2") Sign In
 
 #signUpModal.fixed.left-0.top-0.hidden.h-full.w-full.overflow-y-auto.overflow-x-hidden.outline-none(data-te-modal-init='', class='z-[1055]', tabindex='-1', aria-labelledby='signUpModalLabel', aria-hidden='true')
   .pointer-events-none.relative.w-auto.opacity-0.transition-all.duration-300.ease-in-out(data-te-modal-dialog-ref='', class='translate-y-[-50px] min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]')
