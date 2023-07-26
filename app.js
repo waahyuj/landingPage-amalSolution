@@ -151,8 +151,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.post('logon',(req, res)=>{
-  console.log('hello');
-  res.send(200);
-})
 module.exports = app;
