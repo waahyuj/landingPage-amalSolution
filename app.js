@@ -32,77 +32,23 @@ app.use (session({
   saveUninitialized: false
 }))
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
 app.post('/login', function(req, res) {
-
-  const session = driver.session();
-
-  session
-    .run('MATCH (u:User {username: $username}) RETURN u', { username:req.body.username })
-    .then(result => {
-      // Check if the user exists
-      // if (result.records.length === 0) {
-      //   // User not found, redirect to an error page or show an error message
-      //   res.redirect('/signin/error');
-      //   return;
-      // }
-
-      const user = result.records[0].get('u');
-      
-      res.cookie(
-        'landing_page_amal',
-        cookieSer.ser({
-          email: user.properties.email,
-          username: user.properties.username,
-        })
-      )
-
-      // Compare the hashed password stored in the database with the provided password
-      // bcrypt.compare(decodedPassword, user.properties.password, function(err, isMatch) {
-      //   if (err) {
-      //     console.error('Error comparing passwords:', err);
-      //     res.redirect('/signin/error');
-      //     return;
-      //   }
-
-      //   if (isMatch) {
-      //     console.log(user)
-      //     res.redirect('/signin/success');
-      //   } else {
-      //     // Passwords do not match, user authentication failed
-      //     res.redirect('/signin/error');
-      //   }
-      // });
+  // tugas
+  // 1. ketika post, get auth dulu ke DB
+  // 2. sudah di get masukan data ke cookieSer
+  res.cookie(
+    'landing_page_amal',
+    cookieSer.ser({
+      email: 'user.properties.email',
+      username: 'user.properties.username',
+      name: 'user.properties.name',
+      firstname: 'user.properties.firtname',
     })
-    .catch(error => {
-      console.error('Error finding user:', error);
-
-      // Close the session
-      session.close();
-
-      // Handle the error and redirect to an error page or show an error message
-      res.redirect('/signin/error');
-    });
+  )
+  console.log('masuk')
+  console.log(req.cookies['landing_page_amal'])
+  res.redirect('/')
 });
-
-app.use(function (req, res, next) {
-  const ck = req.cookies['landing_page_amal']
-  console.log(ck)
-  console.log("ck")
-  if (ck) {
-    const cookie = cookieSer.dser(req.cookies['landing_page_amal'])
-
-    console.log(cookie)
-    console.log("1")
-    return next()
-  }else{
-    res.clearCookie('landing_page_amal')
-    console.log("2")
-    return next()
-  }
-})
 
 //SIGNIN FUNCTION
 app.post('/signin', function(req, res) {
@@ -115,46 +61,33 @@ app.post('/signin', function(req, res) {
 
 });
 
+app.use(function (req, res, next) {
+  const ck = req.cookies['landing_page_amal']
+  console.log(ck)
+  console.log("ck")
+  // notes: console diatas melikat apakah ada cookie atau tidak, cokie akan berbentuk encode
+  if (ck) {
+    // notes: jika ada cookie akan masuk ke sini
+    const cookie = cookieSer.dser(req.cookies['landing_page_amal'])
+    console.log(cookie)
+    // notes: console diatas untuk melihat data cookie yang telah di decode
 
-//SIGNUP FUNCTION
-app.post('/signup', function(req, res) {
-  const { username, email, password } = req.body;
-  const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
-
-  const session = driver.session();
-
-  // Hash the password
-  bcrypt.hash(decodedPassword, 10, function(err, hashedPassword) {
-    if (err) {
-      console.error('Error hashing password:', err);
-      res.redirect('/signup/error');
-      return;
+    // notes: untuk fungsi dibawah masukan data cookie ke res agar dapat dipanggil di view
+    res.locals.username = cookie.username
+    res.locals.firstname = cookie.firstname
+    res.locals.common = {
+      username: cookie.username,
+      user: cookie.firstname
     }
+    return next()
+  }else{
+    // notes: jika tidak ada cookir akan masuk ke sini
+    return next()
+  }
+})
 
-    // Create a new user node in the Neo4j database
-    session
-      .run(
-        'CREATE (u:User {username: $username, email: $email, password: $password, createdAt: TIMESTAMP(), createdBy: $username}) WITH u MATCH (l:Level), (u:User) WHERE l.label = "user" AND u.username = $username CREATE (l)-[:HAS_USER]->(u) RETURN u ',
-        { username, email, password: hashedPassword }
-      )
-      .then(result => {
-        // Close the session
-        session.close();
-
-        // Redirect to the success page or any other desired route
-        res.redirect('/signup/success');
-      })
-      .catch(error => {
-        console.error('Error creating user:', error);
-
-        // Close the session
-        session.close();
-
-        // Handle the error and redirect to an error page or show an error message
-        res.redirect('/signup/error');
-      });
-  });
-});
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
