@@ -54,9 +54,8 @@ app.post('/login', function(req, res) {
       const userData = {
         email: user.email,
         username: user.username,
-        password: user.password,
         createdAt: user.createdAt,
-        createdBy: user.createdBy,
+        createdBy: user.createdBy
       };
 
       res.cookie('landing_page_amal', cookieSer.ser(userData));
@@ -98,10 +97,12 @@ app.use(function (req, res, next) {
 
     // notes: untuk fungsi dibawah masukan data cookie ke res agar dapat dipanggil di view
     res.locals.username = cookie.username
-    res.locals.firstname = cookie.firstname
+    res.locals.email = cookie.email
+    res.locals.createdAt = cookie.createdAt
+    res.locals.createdBy = cookie.createdBy
     res.locals.common = {
       username: cookie.username,
-      user: cookie.firstname
+      email: cookie.email
     }
     return next()
   } else {
