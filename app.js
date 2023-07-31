@@ -26,29 +26,51 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('node_modules'));
-app.use (session({
+app.use(session({
   secret: 'some secret',
-  cookie: {maxAge: 30000},
+  cookie: { maxAge: 30000 },
   saveUninitialized: false
-}))
+}));
 
 app.post('/login', function(req, res) {
-  // tugas
-  // 1. ketika post, get auth dulu ke DB
-  // 2. sudah di get masukan data ke cookieSer
-  res.cookie(
-    'landing_page_amal',
-    cookieSer.ser({
-      email: 'user.properties.email',
-      username: 'user.properties.username',
-      name: 'user.properties.name',
-      firstname: 'user.properties.firtname',
+  const { username, password } = req.body;
+
+  const session = driver.session();
+  //1. ketika post, get auth dulu ke DB (cari user berdasarkan data di neo4j)
+  session
+    .run('MATCH (u:User {username: $username}) RETURN u', { username })
+    .then((result) => {
+      session.close();
+
+      if (!result.records.length) {
+        // jika user tidak ada di database
+        console.log('user belum terdaftar');
+      }
+
+      // Mengambil data user dari hasil query
+      const user = result.records[0].get('u').properties;
+
+      //2. Sudah di get masukkan data ke cookieSer
+      const userData = {
+        email: user.email,
+        username: user.username,
+        password: user.password,
+        createdAt: user.createdAt,
+        createdBy: user.createdBy,
+      };
+
+      res.cookie('landing_page_amal', cookieSer.ser(userData));
+
+      console.log('Data pengguna:', userData);
+      res.redirect('/');
     })
-  )
-  console.log('masuk')
-  console.log(req.cookies['landing_page_amal'])
-  res.redirect('/')
+    .catch((error) => {
+      session.close();
+      console.error('Error executing Neo4j query:', error);
+      res.status(500).send('Internal server error.');
+    });
 });
+
 
 //SIGNIN FUNCTION
 app.post('/signin', function(req, res) {
@@ -61,11 +83,13 @@ app.post('/signin', function(req, res) {
 
 });
 
+
+
 app.use(function (req, res, next) {
   const ck = req.cookies['landing_page_amal']
   console.log(ck)
   console.log("ck")
-  // notes: console diatas melikat apakah ada cookie atau tidak, cokie akan berbentuk encode
+  // notes: console diatas melihat apakah ada cookie atau tidak, cokie akan berbentuk encode
   if (ck) {
     // notes: jika ada cookie akan masuk ke sini
     const cookie = cookieSer.dser(req.cookies['landing_page_amal'])
@@ -80,11 +104,11 @@ app.use(function (req, res, next) {
       user: cookie.firstname
     }
     return next()
-  }else{
+  } else {
     // notes: jika tidak ada cookir akan masuk ke sini
     return next()
   }
-})
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
