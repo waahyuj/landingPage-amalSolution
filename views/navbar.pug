@@ -10,8 +10,8 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#pricing') Pricing
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#business') Business
       div.text-black.text-right.space-x-5
-          button#diSini.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signInModal', data-te-ripple-init='', data-te-ripple-color='light') Sign in
-          button#diSana.bg-firstPurple.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signUpModal', data-te-ripple-init='', data-te-ripple-color='light') Sign Up 
+          button#navbar1.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signInModal', data-te-ripple-init='', data-te-ripple-color='light') Sign in
+          button#navbar2.bg-firstPurple.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signUpModal', data-te-ripple-init='', data-te-ripple-color='light') Sign Up 
 
 #signInModal.fixed.left-0.top-0.hidden.h-full.w-full.overflow-y-auto.overflow-x-hidden.outline-none(data-te-modal-init='', class='z-[1055]', tabindex='-1', aria-labelledby='signInModalLabel', aria-hidden='true')
   .pointer-events-none.relative.w-auto.opacity-0.transition-all.duration-300.ease-in-out(data-te-modal-dialog-ref='', class='translate-y-[-50px] min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]')
@@ -30,10 +30,7 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
               input(class="text-white bg-transparent focus:outline-none border-none" type="text" name="username" id="username" placeholder="Username")
           div(class="flex items-center border py-2 px-3 mt-4 rounded-xl mb-4")
               input(class="text-white bg-transparent focus:outline-none border-none" type="password" name="password" id="password" placeholder="Password")
-          button(type="submit" data-te-modal-dismiss="" class="block w-full bg-secondPurple mt-4 py-2 rounded-xl text-firstPurple font-semibold mb-2") Sign In
-      //- // Modal footer
-      //- .flex.flex-shrink-0.flex-wrap.items-center.justify-end.rounded-b-md.border-t-2.border-neutral-100.border-opacity-100.p-4(class='dark:border-opacity-50')
-      //-   button(type="submit" data-te-modal-dismiss="" class="block w-full bg-secondPurple mt-4 py-2 rounded-xl text-firstPurple font-semibold mb-2") Sign In
+          button#buttonsignIn(type="submit" data-te-modal-dismiss="" class="block w-full bg-secondPurple mt-4 py-2 rounded-xl text-firstPurple font-semibold mb-2") Sign In
 
 #signUpModal.fixed.left-0.top-0.hidden.h-full.w-full.overflow-y-auto.overflow-x-hidden.outline-none(data-te-modal-init='', class='z-[1055]', tabindex='-1', aria-labelledby='signUpModalLabel', aria-hidden='true')
   .pointer-events-none.relative.w-auto.opacity-0.transition-all.duration-300.ease-in-out(data-te-modal-dialog-ref='', class='translate-y-[-50px] min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]')
@@ -59,10 +56,29 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
         button#buttonSignUp(type="submit" data-te-modal-dismiss="" class="block w-full bg-violet-900 mt-4 py-2 rounded-xl text-white font-semibold mb-2") Sign Up
 
 script.
+  //cek fungsi click navbar 1 (SignIn/username yang masuk)
+  const buttonNavbar1 = document.getElementById('navbar1');
+  buttonNavbar1.addEventListener('click', () => {
+    alert("Check Point 1.1!");
+    //text pada button Sign In akan berubah
+    const namenya = "wahyu";
+    const navbar1Button = document.getElementById('navbar1');
+    navbar1Button.textContent = namenya;
+  });
+
+  //cek fungsi click navbar 2 (SignUp/Logout)
+  const buttonNavbar2 = document.getElementById('navbar2');
+  buttonNavbar2.addEventListener('click', () => {
+     alert("Check Point 2.1!");
+  });
+
+
+  //code untuk fungsi button ketika di click
   const buttonSignUp = document.getElementById('buttonSignUp');
   const buttonsignIn = document.getElementById('buttonsignIn');
 
   buttonsignIn.addEventListener('click', () => {
+    alert("Check Point 1.2!");
 
     const usernameInput = document.querySelector('#signInForm input[name="username"]');
     const passwordInput = document.querySelector('#signInForm input[name="password"]');
@@ -76,7 +92,7 @@ script.
       username: username,
       password: encodedPassword
     };
-
+ 
     fetch('/signin', {
       method: 'POST',
       headers: {
@@ -89,16 +105,16 @@ script.
         // Sign-in successful
         window.location.href = '/signin/success';
         const namenya = usernameInput.value;
-        const diSiniButton = document.getElementById('diSini');
-        diSiniButton.textContent = namenya;
+        const navbar1Button = document.getElementById('navbar1');
+        navbar1Button.textContent = namenya;
 
         const signInModal = document.getElementById('signInModal');
         signInModal.setAttribute('aria-hidden', 'true');
         signInModal.classList.add('hidden');
         signInModal.classList.remove('pointer-events-auto');
 
-        const diSanaButton = document.getElementById('diSana');
-        diSanaButton.style.display = 'none';
+        const navbar2Button = document.getElementById('navbar2');
+        navbar2Button.style.display = 'none';
 
       } else {
         //sign-in failure
