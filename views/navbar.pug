@@ -143,6 +143,22 @@ script.
       password: encodedPassword
     };
 
+    alert("Check Point 2.2!");
+    //text pada button Sign In akan berubah
+    const newTextNavbar1 = usernameInput.value; //const newTextNavbar1 = "lanjutan 2.2";
+    const navbar1Button = document.getElementById('navbar1');
+    navbar1Button.textContent = newTextNavbar1;
+
+    //- //navbar 2 jadi hilang
+    //- const navbar2Button = document.getElementById('navbar2');
+    //- navbar2Button.style.display = 'none';
+
+    //navbar 2 jadi button Sign Out
+    const newTextNavbar2 = "Sign Out";
+    const navbar2Button = document.getElementById('navbar2');
+    navbar2Button.textContent = newTextNavbar2;
+    navbar2Button.style.backgroundColor = 'red';
+
     fetch('/signup', {
       method: 'POST',
       headers: {

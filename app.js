@@ -82,6 +82,44 @@ app.post('/signin', function(req, res) {
 
 });
 
+app.post('/signup', function(req, res) {
+  const { username, email, password } = req.body;
+  const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
+
+  const session = driver.session();
+
+  // Hash the password
+  bcrypt.hash(decodedPassword, 10, function(err, hashedPassword) {
+    if (err) {
+      console.error('Error hashing password:', err);
+      res.redirect('/signup/error');
+      return;
+    }
+
+    // Create a new user node in the Neo4j database
+    session
+      .run(
+        'CREATE (u:User {username: $username, email: $email, password: $password, createdAt: TIMESTAMP(), createdBy: $username}) WITH u MATCH (l:Level), (u:User) WHERE l.label = "user" AND u.username = $username CREATE (l)-[:HAS_USER]->(u) RETURN u ',
+        { username, email, password: hashedPassword }
+      )
+      .then(result => {
+        // Close the session
+        session.close();
+
+        // Redirect to the success page or any other desired route
+        res.redirect('/signup/success');
+      })
+      .catch(error => {
+        console.error('Error creating user:', error);
+
+        // Close the session
+        session.close();
+
+        // Handle the error and redirect to an error page or show an error message
+        res.redirect('/signup/error');
+      });
+  });
+});
 
 
 app.use(function (req, res, next) {
