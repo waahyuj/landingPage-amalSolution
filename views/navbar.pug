@@ -11,8 +11,8 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#business') Business
       div.text-black.text-right.space-x-5
           if data
-            button#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button')= data.username
-            button#navbar4.bg-red-500.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full(type='button') Logout
+            button#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button' onclick="buttonNavbar3()")= data.username
+            button#navbar4.bg-red-500.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full(type='button' onclick="buttonNavbar4()") Logout
           else
             button#navbar1.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signInModal', data-te-ripple-init='', data-te-ripple-color='light') Sign in
             button#navbar2.bg-firstPurple.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signUpModal', data-te-ripple-init='', data-te-ripple-color='light') Sign Up 
@@ -77,17 +77,30 @@ script.
   });
 
   //cek fungsi click navbar 3 (notif random)
-  const buttonNavbar3 = document.getElementById('navbar3');
-  buttonNavbar3.addEventListener('click', () => {
-     alert("Check Point 3.1!");
-  });
+  function buttonNavbar3(){
+    alert("Check Point 3.1!");
+  }
 
-  //cek fungsi click navbar 4 (Logout)
-  const buttonNavbar4 = document.getElementById('navbar4');
-  buttonNavbar4.addEventListener('click', () => {
-     alert("Check Point 4.1!");
-  });
-
+  //cek fungsi click navbar 4 (logout)
+  function buttonNavbar4(){
+    alert("Check Point 4.1!");
+      fetch('/logout', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Logout berhasil");
+        } else {
+          console.error('Logout gagal:', response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Logout gagal:', error);
+      });
+  }
 
   //code untuk fungsi button ketika di click
   const buttonSignUp = document.getElementById('buttonSignUp');

@@ -109,6 +109,13 @@ app.post('/signup', function(req, res) {
   });
 });
 
+app.get('/logout', function(req, res) {
+  //menghapus cookie 
+  res.cookie('landing_page_amal', '', { expires: new Date(0) });
+
+  res.redirect('/keluar'); 
+});
+
 app.use(function (req, res, next) {
   const ck = req.cookies['landing_page_amal']
   console.log(ck)
