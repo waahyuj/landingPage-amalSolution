@@ -70,18 +70,6 @@ app.post('/login', function(req, res) {
     });
 });
 
-
-//SIGNIN FUNCTION
-app.post('/signin', function(req, res) {
-  const { username, password } = req.body;
-  const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
-
-  const session = driver.session();
-
-  // Retrieve the user from the Neo4j database based on the provided username
-
-});
-
 app.post('/signup', function(req, res) {
   const { username, email, password } = req.body;
   const decodedPassword = Buffer.from(password, 'base64').toString('utf-8');
@@ -120,7 +108,6 @@ app.post('/signup', function(req, res) {
       });
   });
 });
-
 
 app.use(function (req, res, next) {
   const ck = req.cookies['landing_page_amal']
