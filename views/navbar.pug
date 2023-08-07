@@ -9,6 +9,7 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#mentor') Mentor
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#pricing') Pricing
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#business') Business
+          a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='/testingPage') SideNav
       div.text-black.text-right.space-x-5
           if data
             button#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button' onclick="buttonNavbar3()")= data.username
@@ -16,6 +17,7 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
           else
             button#navbar1.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signInModal', data-te-ripple-init='', data-te-ripple-color='light') Sign in
             button#navbar2.bg-firstPurple.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signUpModal', data-te-ripple-init='', data-te-ripple-color='light') Sign Up 
+
 
 #signInModal.fixed.left-0.top-0.hidden.h-full.w-full.overflow-y-auto.overflow-x-hidden.outline-none(data-te-modal-init='', class='z-[1055]', tabindex='-1', aria-labelledby='signInModalLabel', aria-hidden='true')
   .pointer-events-none.relative.w-auto.opacity-0.transition-all.duration-300.ease-in-out(data-te-modal-dialog-ref='', class='translate-y-[-50px] min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]')
@@ -132,6 +134,7 @@ script.
     .then(response => {
       if (response.ok) {
         // Sign-in successful
+        alert("Login berhasil");
         window.location.href = '/signin/success';
         const namenya = usernameInput.value;
         const navbar1Button = document.getElementById('navbar1');
@@ -197,6 +200,7 @@ script.
     })
     .then(response => {
       if (response.ok) {
+        alert("Registrasi berhasil");
         // Sign-up successful and Hide the modal after successful sign-up
         window.location.href = '/signup/success';
         const signUpModal = document.getElementById('signUpModal');

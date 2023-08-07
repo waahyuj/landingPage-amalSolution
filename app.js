@@ -45,6 +45,7 @@ app.post('/login', function(req, res) {
       if (!result.records.length) {
         // jika user tidak ada di database
         console.log('user belum terdaftar');
+        return res.status(401).send('User belum terdaftar');
       }
 
       // Mengambil data user dari hasil query
@@ -61,13 +62,23 @@ app.post('/login', function(req, res) {
       res.cookie('landing_page_amal', cookieSer.ser(userData));
 
       console.log('Data pengguna:', userData);
-      res.redirect('/');
+      res.redirect('/newPage');
     })
     .catch((error) => {
       session.close();
       console.error('Error executing Neo4j query:', error);
       res.status(500).send('Internal server error.');
     });
+});
+
+//halaman setelah berhasil login
+app.get('/newPage', function(req, res) {
+  res.send('Hello World!!!');
+});
+
+//halaman testing (testingPage)
+app.get('/testingPage', function(req, res) {
+  res.render('testingPage'); // Render halaman 'mentor.pug'
 });
 
 app.post('/signup', function(req, res) {
@@ -84,37 +95,28 @@ app.post('/signup', function(req, res) {
       return;
     }
 
-    // Create a new user node in the Neo4j database
+    // membuat data user baru di database neo4j
     session
       .run(
         'CREATE (u:User {username: $username, email: $email, password: $password, createdAt: TIMESTAMP(), createdBy: $username}) WITH u MATCH (l:Level), (u:User) WHERE l.label = "user" AND u.username = $username CREATE (l)-[:HAS_USER]->(u) RETURN u ',
         { username, email, password: hashedPassword }
       )
       .then(result => {
-        // Close the session
         session.close();
-
-        // Redirect to the success page or any other desired route
-        res.redirect('/signup/success');
+        res.redirect('/');
       })
       .catch(error => {
         console.error('Error creating user:', error);
-
-        // Close the session
         session.close();
-
-        // Handle the error and redirect to an error page or show an error message
-        res.redirect('/signup/error');
+        res.redirect('/');
       });
   });
 });
 
-app.get('/logout', function(req, res) {
-  //menghapus cookie 
-  res.cookie('landing_page_amal', '', { expires: new Date(0) });
-
-  res.redirect('/keluar'); 
-});
+app.get('/logout', function (req, res) {
+  res.clearCookie('landing_page_amal')
+  res.redirect('/newPage')
+})
 
 app.use(function (req, res, next) {
   const ck = req.cookies['landing_page_amal']

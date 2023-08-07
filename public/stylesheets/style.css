@@ -990,6 +990,9 @@ video {
 .w-6{
   width: 1.5rem;
 }
+.w-64{
+  width: 16rem;
+}
 .w-7{
   width: 1.75rem;
 }
@@ -1503,6 +1506,10 @@ video {
 }
 .border-\[14px\]{
   border-width: 14px;
+}
+.border-y{
+  border-top-width: 1px;
+  border-bottom-width: 1px;
 }
 .border-b-2{
   border-bottom-width: 2px;
