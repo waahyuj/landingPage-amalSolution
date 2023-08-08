@@ -9,10 +9,11 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#mentor') Mentor
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#pricing') Pricing
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#business') Business
-          a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='/testingPage') SideNav
+          //- a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='/testingPage') SideNav
       div.text-black.text-right.space-x-5
           if data
-            button#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button' onclick="buttonNavbar3()")= data.username
+            a#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(href='/testingPage')= data.username
+            //- button#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button' onclick="buttonNavbar3()" data-href='/testingPage')= data.username
             button#navbar4.bg-red-500.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full(type='button' onclick="buttonNavbar4()") Logout
           else
             button#navbar1.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signInModal', data-te-ripple-init='', data-te-ripple-color='light') Sign in
@@ -81,6 +82,11 @@ script.
   //cek fungsi click navbar 3 (notif random)
   function buttonNavbar3(){
     alert("Check Point 3.1!");
+
+    //percobaan pakai tag button
+    //- var button = document.getElementById('navbar3');
+    //- var href = button.getAttribute('data-href');
+    //- window.location.href = href;
   }
 
   //cek fungsi click navbar 4 (logout)
