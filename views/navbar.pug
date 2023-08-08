@@ -63,38 +63,12 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
         button#buttonSignUp(type="submit" data-te-modal-dismiss="" class="block w-full bg-violet-900 mt-4 py-2 rounded-xl text-white font-semibold mb-2") Sign Up
 
 script.
-  //cek fungsi click navbar 1 (SignIn/username yang masuk)
-  const buttonNavbar1 = document.getElementById('navbar1');
-  buttonNavbar1.addEventListener('click', () => {
-    alert("Check Point 1.1!");
-    //text pada button Sign In akan berubah
-    const namenya = "user";
-    const navbar1Button = document.getElementById('navbar1');
-    navbar1Button.textContent = namenya;
-  });
-
-  //cek fungsi click navbar 2 (SignUp)
-  const buttonNavbar2 = document.getElementById('navbar2');
-  buttonNavbar2.addEventListener('click', () => {
-     alert("Check Point 2.1!");
-  });
-
-  //cek fungsi click navbar 3 (notif random)
-  function buttonNavbar3(){
-    alert("Check Point 3.1!");
-
-    //percobaan pakai tag button
-    //- var button = document.getElementById('navbar3');
-    //- var href = button.getAttribute('data-href');
-    //- window.location.href = href;
-  }
 
   //code untuk fungsi button ketika di click
   const buttonSignUp = document.getElementById('buttonSignUp');
   const buttonsignIn = document.getElementById('buttonsignIn');
 
   buttonsignIn.addEventListener('click', () => {
-    alert("Check Point 1.2!");
 
     const usernameInput = document.querySelector('#signInForm input[name="username"]');
     const passwordInput = document.querySelector('#signInForm input[name="password"]');
@@ -119,7 +93,6 @@ script.
     .then(response => {
       if (response.ok) {
         // Sign-in successful
-        alert("Login berhasil");
         window.location.href = '/signin/success';
         const namenya = usernameInput.value;
         const navbar1Button = document.getElementById('navbar1');
@@ -160,7 +133,6 @@ script.
       password: encodedPassword
     };
 
-    alert("Check Point 2.2!");
     //text pada button Sign In akan berubah
     const newTextNavbar1 = usernameInput.value; //const newTextNavbar1 = "lanjutan 2.2";
     const navbar1Button = document.getElementById('navbar1');
@@ -185,7 +157,6 @@ script.
     })
     .then(response => {
       if (response.ok) {
-        alert("Registrasi berhasil");
         // Sign-up successful and Hide the modal after successful sign-up
         window.location.href = '/signup/success';
         const signUpModal = document.getElementById('signUpModal');
@@ -205,7 +176,6 @@ script.
 
   //cek fungsi click navbar 4 (logout)
   function buttonNavbar4(){
-    alert("Check Point 4.1!");
       fetch('/logout', {
         method: 'GET',
         headers: {
@@ -214,7 +184,6 @@ script.
       })
       .then(response => {
         if (response.ok) {
-          //- alert("Logout berhasil");
           location.reload();
         } else {
           console.error('Logout gagal:', response.statusText);
