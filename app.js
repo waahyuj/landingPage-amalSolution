@@ -79,7 +79,7 @@ app.get('/newPage', function(req, res) {
 
 //halaman testing (testingPage)
 app.get('/testingPage', function(req, res) {
-  res.render('testingPage'); // Render halaman 'mentor.pug'
+  res.render('indexTesting'); 
 });
 
 app.post('/signup', function(req, res) {

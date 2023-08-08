@@ -1310,6 +1310,9 @@ video {
 .flex-row{
   flex-direction: row;
 }
+.flex-row-reverse{
+  flex-direction: row-reverse;
+}
 .flex-col{
   flex-direction: column;
 }
@@ -1506,10 +1509,6 @@ video {
 }
 .border-\[14px\]{
   border-width: 14px;
-}
-.border-y{
-  border-top-width: 1px;
-  border-bottom-width: 1px;
 }
 .border-b-2{
   border-bottom-width: 2px;
