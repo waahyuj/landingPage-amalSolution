@@ -62,7 +62,8 @@ app.post('/login', function(req, res) {
       res.cookie('landing_page_amal', cookieSer.ser(userData));
 
       console.log('Data pengguna:', userData);
-      res.redirect('/newPage');
+      // res.redirect('/newPage');
+      res.redirect('/');
     })
     .catch((error) => {
       session.close();
@@ -71,7 +72,7 @@ app.post('/login', function(req, res) {
     });
 });
 
-//halaman setelah berhasil login
+//option halaman ketika setelah berhasil login
 app.get('/newPage', function(req, res) {
   res.send('Hello World!!!');
 });
@@ -115,7 +116,7 @@ app.post('/signup', function(req, res) {
 
 app.get('/logout', function (req, res) {
   res.clearCookie('landing_page_amal')
-  res.redirect('/newPage')
+  res.redirect('/')
 })
 
 app.use(function (req, res, next) {

@@ -68,7 +68,7 @@ script.
   buttonNavbar1.addEventListener('click', () => {
     alert("Check Point 1.1!");
     //text pada button Sign In akan berubah
-    const namenya = "wahyu";
+    const namenya = "user";
     const navbar1Button = document.getElementById('navbar1');
     navbar1Button.textContent = namenya;
   });
@@ -87,27 +87,6 @@ script.
     //- var button = document.getElementById('navbar3');
     //- var href = button.getAttribute('data-href');
     //- window.location.href = href;
-  }
-
-  //cek fungsi click navbar 4 (logout)
-  function buttonNavbar4(){
-    alert("Check Point 4.1!");
-      fetch('/logout', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("Logout berhasil");
-        } else {
-          console.error('Logout gagal:', response.statusText);
-        }
-      })
-      .catch(error => {
-        console.error('Logout gagal:', error);
-      });
   }
 
   //code untuk fungsi button ketika di click
@@ -223,3 +202,25 @@ script.
       console.error('Sign-up failed:', error);
     });
   });
+
+  //cek fungsi click navbar 4 (logout)
+  function buttonNavbar4(){
+    alert("Check Point 4.1!");
+      fetch('/logout', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          //- alert("Logout berhasil");
+          location.reload();
+        } else {
+          console.error('Logout gagal:', response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Logout gagal:', error);
+      });
+  }
