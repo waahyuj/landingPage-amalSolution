@@ -1,4 +1,18 @@
-extends ../../layout
+doctype html
+html
+  head
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    title= "Content Header | laracamp"
+    block style
+      include ../../style
+    block script
+      include ../../script
+    
+  body.font-poppins 
+    block sidebar
+      include ../../partials/sidebar
+      include ../../menu/contentHeader/section1
 
-block content
-  h1 ini menu content header
+    block content
+
+    script(src='/tw-elements/dist/js/tw-elements.umd.min.js', type='text/javascript')

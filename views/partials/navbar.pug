@@ -2,14 +2,13 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
   div.container.mx-auto.ml-10
     div.flex.items-center.justify-between
       div.flex.items-center
-        a.space-x-3(href='#banner' class="space-x-1 py-1 pl-4")
-          img(src="images/laracamplogo.svg" alt="logo")
+        a.space-x-3(href='/' class="space-x-1 py-1 pl-4")
+          img(src="../images/laracamplogo.svg" alt="logo")
         div.ml-10.space-x-7
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#program') Program
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#mentor') Mentor
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#pricing') Pricing
           a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='#business') Business
-          //- a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='/testingPage') SideNav
       div.text-black.text-right.space-x-5
           if data
             a#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(href='/common/contentHeader')= data.username

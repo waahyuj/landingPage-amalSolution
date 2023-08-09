@@ -10,7 +10,6 @@ const app = express();
 // variable router, router bisa ditambah. notes penambahan router harus jelas dan jangan ngasal
 const index = require('./routes/index');
 const common = require('./routes/common');
-// const indexTestingRouter = require('./routes/indexTesting');
 const driver = neo4j.driver(
   'neo4j://localhost:7687',
   neo4j.auth.basic('neo4j', '12345678'),
