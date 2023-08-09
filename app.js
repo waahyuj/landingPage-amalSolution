@@ -9,6 +9,7 @@ const session = require('express-session')
 const app = express();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+// const indexTestingRouter = require('./routes/indexTesting');
 const driver = neo4j.driver(
   'neo4j://localhost:7687',
   neo4j.auth.basic('neo4j', '12345678'),
@@ -147,6 +148,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', indexRouter);
+// app.use('/', indexTestingRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
