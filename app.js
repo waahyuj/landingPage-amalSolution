@@ -7,8 +7,9 @@ const neo4j = require('neo4j-driver');
 const bcrypt = require('bcrypt');
 const session = require('express-session')
 const app = express();
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+// variable router, router bisa ditambah. notes penambahan router harus jelas dan jangan ngasal
+const index = require('./routes/index');
+const common = require('./routes/common');
 // const indexTestingRouter = require('./routes/indexTesting');
 const driver = neo4j.driver(
   'neo4j://localhost:7687',
@@ -147,9 +148,9 @@ app.use(function (req, res, next) {
   }
 });
 
-app.use('/', indexRouter);
-// app.use('/', indexTestingRouter);
-app.use('/users', usersRouter);
+// ketika menambah router daftarkan juga disini
+app.use('/', index);
+app.use('/common', common);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -12,8 +12,7 @@ nav.top-0.flex.fixed.w-full.flex-wrap.bg-white.px-4.py-3.shadow
           //- a(class='mx-2 text-black hover:text-firstPurple active:text-firstPurple' href='/testingPage') SideNav
       div.text-black.text-right.space-x-5
           if data
-            a#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(href='/testingPage')= data.username
-            //- button#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button' onclick="buttonNavbar3()" data-href='/testingPage')= data.username
+            a#navbar3.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(href='/common/contentHeader')= data.username
             button#navbar4.bg-red-500.text-xs.text-white.w-28.h5.py-2.px-4.rounded-full(type='button' onclick="buttonNavbar4()") Logout
           else
             button#navbar1.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(type='button', data-te-toggle='modal', data-te-target='#signInModal', data-te-ripple-init='', data-te-ripple-color='light') Sign in
