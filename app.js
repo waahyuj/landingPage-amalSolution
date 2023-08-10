@@ -120,32 +120,6 @@ app.get('/logout', function (req, res) {
   res.redirect('/')
 })
 
-//ambil data untuk player table
-app.get('/getplayer', async (req, res) => {
-  const session = driver.session();
-  const resultdata = []
-  try {
-    const result = await session.run('MATCH (p:Player) RETURN p.name AS name, p.salary AS salary, p.contract AS contract, p.status AS status');
-    result.records.map(record => {
-      resultdata.push({
-        name: record.get('name'),
-        salary: record.get('salary'),
-        contract: record.get('contract'),
-        status: record.get('status')
-      });
-      return result
-    });
-
-    res.json(resultdata);
-  } catch (error) {
-    console.error('Error retrieving data from Neo4j:', error);
-    res.status(500).json({ error: 'An error occurred' });
-  } finally {
-    await session.close();
-  }
-});
-
-
 app.use(function (req, res, next) {
   const ck = req.cookies['landing_page_amal']
   console.log(ck)
