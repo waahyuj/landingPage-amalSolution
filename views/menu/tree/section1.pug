@@ -8,33 +8,41 @@ div.container.mx-auto.mt-10
         th.py-2.px-4 CONTRACT
         th.py-2.px-4 STATUS
     tbody
+      each i in resultdata
+        tr.shadow-sm.text-xs.text-fourthPurple
+          th.py-2.px-4=i.name
+          th.py-2.px-4=i.salary
+          th.py-2.px-4=i.contract
+          th.py-2.px-4=i.status
+        -console.log(i)
+    
       
 
 
 script.
-  const playerListElement = document.getElementById('playerList').getElementsByTagName('tbody')[0];
+  //- const playerListElement = document.getElementById('playerList').getElementsByTagName('tbody')[0];
 
-  async function fetchData() {
-    try {
-      const response = await fetch('/getplayer');
-      const data = await response.json();
+  //- async function fetchData() {
+  //-   try {
+  //-     const response = await fetch('/getplayer');
+  //-     const data = await response.json();
 
-      data.forEach(player => {
-        const playerRow = document.createElement('tr');
-        playerRow.className = 'shadow-sm text-xs';
+  //-     data.forEach(player => {
+  //-       const playerRow = document.createElement('tr');
+  //-       playerRow.className = 'shadow-sm text-xs';
 
-        playerRow.innerHTML = `
-          <td class="py-2 px-4">${player.name}</td>
-          <td class="py-2 px-4">${player.salary}</td>
-          <td class="py-2 px-4">${player.contract}</td>
-          <td class="py-2 px-4">${player.status}</td>
-        `;
+  //-       playerRow.innerHTML = `
+  //-         <td class="py-2 px-4">${player.name}</td>
+  //-         <td class="py-2 px-4">${player.salary}</td>
+  //-         <td class="py-2 px-4">${player.contract}</td>
+  //-         <td class="py-2 px-4">${player.status}</td>
+  //-       `;
 
-        playerListElement.appendChild(playerRow);
-      });
-    } catch (error) {
-    console.error('Error fetching data:', error);
-    }
-  }
+  //-       playerListElement.appendChild(playerRow);
+  //-     });
+  //-   } catch (error) {
+  //-   console.error('Error fetching data:', error);
+  //-   }
+  //- }
 
-  fetchData();
+  //- fetchData();
