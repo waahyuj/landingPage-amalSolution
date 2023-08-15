@@ -19,11 +19,33 @@ router.get('/contentHeader', function(req, res, next) {
 
 /* direct untuk content support */
 router.get('/support', function(req, res, next) {
-  const common = res.locals.common
-  // alamat folder content support
-  res.render('menu/support/index', {
-    data: common
-  });
+  const session = driver.session();
+  const resultdata = []
+  session
+      .run(
+        'MATCH (c:Content) RETURN c.title AS title, c.description AS description, c.fileName AS fileName ',
+      )
+      .then(result => {
+        result.records.map(record => {
+          resultdata.push({
+            title: record.get('title'),
+            description: record.get('description'),
+            fileName: record.get('fileName')
+          });
+        });
+        session.close();
+        const common = res.locals.common
+        // alamat folder content contentHeader
+        res.render('menu/support/index', {
+          data: common, 
+          resultdata: resultdata
+        });
+      })
+      .catch(error => {
+        console.error('Error creating user:', error);
+        session.close();
+        res.redirect('/');
+      });
 });
 
 /* direct untuk content tree */
@@ -32,7 +54,7 @@ router.get('/tree', function(req, res, next) {
   const resultdata = []
   session
       .run(
-        'MATCH (p:Player) RETURN p.name AS name, p.salary AS salary, p.contract AS contract, p.status AS status',
+        'MATCH (p:Player) RETURN p.name AS name, p.salary AS salary, p.contract AS contract, p.status AS status ORDER BY p.name ASC',
       )
       .then(result => {
         result.records.map(record => {
@@ -55,8 +77,9 @@ router.get('/tree', function(req, res, next) {
         console.error('Error creating user:', error);
         session.close();
         res.redirect('/');
-      });
-  
+      });  
 });
 
 module.exports = router;
+
+

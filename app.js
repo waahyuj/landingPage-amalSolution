@@ -120,6 +120,26 @@ app.get('/logout', function (req, res) {
   res.redirect('/')
 })
 
+app.post('/changeContent', function(req, res) {
+  const { title, description } = req.body;
+  const session = driver.session();
+  
+  session
+    .run(
+      'MATCH (c:Content {label: "content header"}) SET c.title = $title, c.description = $description, c.updatedAt = TIMESTAMP()',
+      { title, description }
+    )
+    .then(result => {
+      session.close();
+      res.redirect('/common/support');
+    })
+    .catch(error => {
+      console.error('Error creating user:', error);
+      session.close();
+      res.redirect('/');
+    }); 
+});
+
 app.use(function (req, res, next) {
   const ck = req.cookies['landing_page_amal']
   console.log(ck)

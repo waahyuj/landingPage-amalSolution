@@ -3,32 +3,14 @@ nav.top-0.flex.w-full.bg-white.px-4.py-5.shadow-sm
     div.w-full.flex.flex-row-reverse
       button.bg-secondPurple.text-xs.text-firstPurple.w-28.h5.py-2.px-4.rounded-full(href='/common/contentHeader')= data.username
       
-div.container.mx-auto.mt-10
-  table(class='border-collapse text-justify rounded-lg shadow-md w-2/3 mx-auto')
-    thead.bg-secondPurple
-      tr.shadow-sm.text-xs.text-fourthPurple
-        th.py-2.px-4 CLIENT / INVOICE
-        th.py-2.px-4 AMOUNT
-        th.py-2.px-4 ISSUED / DUE
-        th.py-2.px-4 STATUS
-    tbody
-      tr.shadow-sm.text-xs
-        td.py-2.px-4 Kepa Arrizabalaga
-        td.py-2.px-4 $150,000
-        td.py-2.px-4 Sept 28, 2023
-        td.py-2.px-4 Paid
-      tr.shadow-sm.text-xs
-        td.py-2.px-4 Enzo Fernandez
-        td.py-2.px-4 $250,000
-        td.py-2.px-4 Sept 20, 2023
-        td.py-2.px-4 Paid
-      tr.shadow-sm.text-xs
-        td.py-2.px-4 Christopher Nkunku
-        td.py-2.px-4 $180,000
-        td.py-2.px-4 Sept 20, 2023
-        td.py-2.px-4 Pending
-      tr.shadow-sm.text-xs
-        td.py-2.px-4 Recee James
-        td.py-2.px-4 $210,000
-        td.py-2.px-4 Sept 24, 2023
-        td.py-2.px-4 Overdue
+div.container.mx-auto.mt-10    
+  form(action="/changeContent" method="post" enctype="multipart/form-data" class='text-justify rounded-none w-2/3 mx-auto')
+    h5.text-xl.font-medium.leading-normal.text-black CHANGE LANDING PAGE CONTENT
+    div(class="flex items-center border py-2 px-3 mt-4 rounded-xl mb-4")
+      input(class="text-black bg-transparent focus:outline-none border-none" type="text" name="title" id="title" placeholder="title")
+    div(class="flex items-center border py-2 px-3 mt-4 rounded-xl mb-4")
+      input(class="text-black bg-transparent focus:outline-none border-none" type="text" name="description" id="description" placeholder="Description")
+    div(class="flex items-center border py-2 px-3 mt-4 rounded-xl mb-4")
+      input(class="text-black bg-transparent focus:outline-none border-none" type="file" name="fileName" id="fileName" placeholder="File")
+    button(type="submit" data-te-modal-dismiss="" class="block w-full bg-secondPurple mt-4 py-2 rounded-xl text-firstPurple font-semibold mb-2") SUBMIT
+    
